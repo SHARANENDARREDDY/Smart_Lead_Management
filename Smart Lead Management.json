@@ -1,0 +1,398 @@
+{
+  "name": "Smart Lead Management",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3ead7480-3c0d-4ace-ac6a-12a76e59c4c3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -80
+      ],
+      "id": "60a2ad99-af4a-4d32-82f0-70ff9a727f76",
+      "name": "Webhook",
+      "webhookId": "3ead7480-3c0d-4ace-ac6a-12a76e59c4c3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a42c329c-0a56-459b-8e52-a664e54d5ff4",
+              "name": "priority",
+              "value": "Pending",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        -80
+      ],
+      "id": "4e71d8a3-39a6-41ef-9b55-8f211063e3ec",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e8d9ed9a-ce8b-4061-ae49-c876cefb7820",
+              "leftValue": "={{ $json.body.budget }}",
+              "rightValue": 50000,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        -80
+      ],
+      "id": "52c65c9d-b01b-4410-900f-fac401d67e14",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d2764b56-679e-4c00-83da-8997306a39d1",
+              "name": "priority",
+              "value": "High",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -176
+      ],
+      "id": "23847716-8efc-48fd-9664-9303803360e5",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NU2ff6Zc_tDBQfJ0gsWQAxUzi4gtZuI40fLe6Rvt95s",
+          "mode": "list",
+          "cachedResultName": "lead CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NU2ff6Zc_tDBQfJ0gsWQAxUzi4gtZuI40fLe6Rvt95s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NU2ff6Zc_tDBQfJ0gsWQAxUzi4gtZuI40fLe6Rvt95s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.body.name }}",
+            "email": "={{ $json.body.email }}",
+            "budget": "={{ $json.body.budget }}",
+            "requirement": "={{ $json.body.requirement }}",
+            "priority": "={{ $json.priority }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "budget",
+              "displayName": "budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "requirement",
+              "displayName": "requirement",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        912,
+        -80
+      ],
+      "id": "ff11a298-c5e2-4f18-b5c1-77892e0b278b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HHIOjV20fXSVwBiU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "564b3685-e81b-492f-abc7-a78383c0c42a",
+              "name": "priority",
+              "value": "Standard",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        64
+      ],
+      "id": "acc29c69-2151-452a-b326-b29748e488c5",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "content": "Receives customer lead data through an HTTP POST request. Acts as the entry point of the workflow. Test using Postman."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -192,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "33dc6fed-fdf3-4116-b0dc-c690559b01b5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Organizes incoming lead data and adds a default priority field. Preserves the customer name, email, budget, and requirement for downstream nodes."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        112,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "e6e5547d-4fd9-493d-a69c-4d749532f3de",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Checks whether the lead budget is greater than or equal to ₹50,000. TRUE = High-priority lead; FALSE = Standard-priority lead."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        368,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "967fee63-07bc-4c8b-992c-8ac9125a5d29",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "Runs for leads with a budget of ₹50,000 or more. Sets priority = High for true and for false standerd and preserves all other lead fields."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        640,
+        -48
+      ],
+      "typeVersion": 1,
+      "id": "ea60a0fc-3a95-44cd-bfb1-d30fe41b0898",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "Appends each processed lead to the Lead CRM spreadsheet. Maps name, email, budget, requirement, and priority to the corresponding columns."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        896,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "53bb0301-91a1-487a-b88e-3a3c9d3f7a3f",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "chatId": "6229907286",
+        "text": "=🆕 NEW SALES LEAD \n\nName: {{$json.name}} \nEmail: {{$json.email}} \nBudget: ₹{{$json.budget}} \nRequirement: {{$json.requirement}}\nPriority: {{$json.priority}} \n\nAction: Contact the customer.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        -80
+      ],
+      "id": "f00855fa-9d31-459a-b680-82da09510b11",
+      "name": "Send a text message",
+      "webhookId": "a9f2c2f9-3f80-4823-84cb-e786c554acce",
+      "credentials": {
+        "telegramApi": {
+          "id": "lyOmWW03MVvKGcBw",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f91c9b17-4545-46d4-9c9c-d4ebb7ff9a01",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "98fd47754f709761077646f9d60b32b1839d5ca57b8cf9503ae52e0ba9a4f50a"
+  },
+  "id": "tZGmyYtk71cNwoPE",
+  "tags": []
+}
