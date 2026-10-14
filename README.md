@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Smart Lead Management System is a workflow automation solution built using n8n to streamline customer lead processing. It captures customer inquiries through webhooks, classifies leads based on their budget, stores lead information in Google Sheets, and notifies the sales team through Telegram.
+The Smart Lead Management System is a workflow automation solution built using n8n to streamline customer lead processing. It captures customer inquiries through webhooks, classifies leads based on their budget, stores lead information in Google Sheets, and notifies the sales team through Telegram or Slack.
 
 ## Features
 
